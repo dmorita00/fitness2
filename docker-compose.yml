@@ -1,0 +1,60 @@
+version: '3'
+
+services:
+    client:
+        build:
+            context: .
+            dockerfile: devops/docker/client/Dockerfile
+            args:
+                DEPLOY: local
+        ports:
+            - "12340:80"
+        volumes:
+            - fitness-code:/code
+        # image: ${DOCKER_REGISTRY}:client-${CIRCLE_BUILD_NUM}
+
+    proxy-nginx:
+        build:
+            context: .
+            dockerfile: devops/docker/proxy-nginx/Dockerfile
+            args:
+                DEPLOY: local
+        ports:
+            - "12341:80"
+        volumes:
+            - fitness-code:/code
+        # image: ${DOCKER_REGISTRY}:proxy-nginx-${CIRCLE_BUILD_NUM}
+
+    server-ruby:
+        build:
+            context: .
+            dockerfile: devops/docker/server-ruby/Dockerfile
+            args:
+                DEPLOY: local
+        volumes:
+            - fitness-code:/code
+        command: bash -c "rm -f tmp/pids/server.pid && rails s -p 3000 -b '0.0.0.0'"
+        # image: ${DOCKER_REGISTRY}:server-ruby-${CIRCLE_BUILD_NUM}
+
+    mysql:
+        build:
+            context: .
+            dockerfile: devops/docker/mysql/Dockerfile
+        environment:
+            MYSQL_ROOT_PASSWORD: password
+        ports:
+            - "3306:3306"
+        volumes:
+            - ./devops/docker/mysql/data:/var/log/mysql:rw
+        user: mysql
+
+# https://qiita.com/kunit/items/36d9e5fa710ad26f8010
+# https://forums.docker.com/t/nfs-native-support/48531/4
+volumes:
+    fitness-code:
+      driver: local
+      driver_opts:
+        type: nfs
+        o: addr=host.docker.internal,actimeo=1,nolock
+        #      o: addr=addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
+        device: ":${PWD}"
