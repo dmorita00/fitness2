@@ -13,6 +13,17 @@ services:
             - fitness-code:/code
         # image: ${DOCKER_REGISTRY}:client-${CIRCLE_BUILD_NUM}
 
+    server-ruby:
+        build:
+            context: .
+            dockerfile: devops/docker/server-ruby/Dockerfile
+            args:
+                DEPLOY: local
+        volumes:
+            - fitness-code:/code
+        command: bash -c "rm -f tmp/pids/server.pid && rails s -p 3000 -b '0.0.0.0'"
+    # image: ${DOCKER_REGISTRY}:server-ruby-${CIRCLE_BUILD_NUM}
+
     proxy-nginx:
         build:
             context: .
@@ -23,18 +34,7 @@ services:
             - "12341:80"
         volumes:
             - fitness-code:/code
-        # image: ${DOCKER_REGISTRY}:proxy-nginx-${CIRCLE_BUILD_NUM}
-
-    server-ruby:
-        build:
-            context: .
-            dockerfile: devops/docker/server-ruby/Dockerfile
-            args:
-                DEPLOY: local
-        volumes:
-            - fitness-code:/code
-        command: bash -c "rm -f tmp/pids/server.pid && rails s -p 3000 -b '0.0.0.0'"
-        # image: ${DOCKER_REGISTRY}:server-ruby-${CIRCLE_BUILD_NUM}
+    # image: ${DOCKER_REGISTRY}:proxy-nginx-${CIRCLE_BUILD_NUM}
 
     mysql:
         build:
