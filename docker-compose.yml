@@ -9,7 +9,7 @@ services:
                 DEPLOY: local
         command: bash -c "cd /code/client && yarn start"
         ports:
-            - "12340:3000"
+            - "12342:3000"
         volumes:
             - fitness-code:/code
         # image: ${DOCKER_REGISTRY}:client-${CIRCLE_BUILD_NUM}
