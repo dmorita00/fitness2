@@ -1,6 +1,8 @@
 class ArticlesController < ApplicationController
   # 記事の一覧表示
   def index
+    articles = Article.all
+    render json: {'status' => 'SUCCESS','message' => 'Created posts','data' => articles}
   end
 
   # 記事の表示

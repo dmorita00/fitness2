@@ -22,7 +22,7 @@ const ArticleAdd: FC = () => {
     for(const k in values) {
       params.append(k, values[k]);
     }
-    const res = await axios.post<ArticleRes>(`http://localhost:12341/articles`, params);
+    const res = await axios.post<ArticleRes>(`http://localhost:12341/article/create`, params);
     console.log('Success:', res);
   };
   const onFinishFailed = (errorInfo: any) => {
