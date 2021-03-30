@@ -5,3 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+seed_models = %i[article]
+seed_models.each do |model|
+  require "./db/seeds/#{model}_seeds"
+end

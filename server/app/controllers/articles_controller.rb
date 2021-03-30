@@ -2,11 +2,15 @@ class ArticlesController < ApplicationController
   # 記事の一覧表示
   def index
     articles = Article.all.order(created_at: :desc)
-    render json: { "status" => "SUCCESS", "message" => "Created posts", "data" => articles }
+    render json: { data: articles }
   end
 
   # 記事の表示
-  def show; end
+  def show
+    id = params[:id]
+    article = Article.find(id)
+    render json: { data: article }
+  end
 
   # 記事の作成
   def new; end
@@ -16,7 +20,7 @@ class ArticlesController < ApplicationController
     @article = Article.new(article_params)
     @article.save
 
-    render json: { status: "SUCCESS", message: "Created posts", data: ["bbb"] }
+    render json: { data: @article }
   end
 
   # 記事の編集
