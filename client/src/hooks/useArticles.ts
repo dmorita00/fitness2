@@ -11,7 +11,7 @@ type ArticlesReq = {
 
 type ArticlesRes = {
   total: number;
-  data: Article[]
+  articles: Article[]
 }
 
 const useArticles = (req: ArticlesReq) => {

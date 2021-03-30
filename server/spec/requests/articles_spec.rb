@@ -12,14 +12,14 @@ RSpec.describe "Articles", type: :request do
     it "件数が正しく返ってくる" do
       get articles_url
       json = JSON.parse(response.body)
-      expect(json["data"].length).to eq(3)
+      expect(json["articles"].length).to eq(3)
     end
     it "id降順にレスポンスが返ってくる" do
       get articles_url
       json = JSON.parse(response.body)
-      first_id = json["data"][0]["id"]
-      expect(json["data"][1]["id"]).to eq(first_id - 1)
-      expect(json["data"][2]["id"]).to eq(first_id - 2)
+      first_id = json["articles"][0]["id"]
+      expect(json["articles"][1]["id"]).to eq(first_id - 1)
+      expect(json["articles"][2]["id"]).to eq(first_id - 2)
     end
   end
 
@@ -34,7 +34,7 @@ RSpec.describe "Articles", type: :request do
     it "titleが正しく返ってくる" do
       get article_url(id: article.id)
       json = JSON.parse(response.body)
-      expect(json["data"]["title"]).to eq("showテスト")
+      expect(json["article"]["title"]).to eq("showテスト")
     end
     it "存在しないidの時に404レスポンスが返ってくる" do
       get article_url({ id: article.id + 1 })

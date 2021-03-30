@@ -6,7 +6,7 @@ import axios from "axios";
 type ArticleRes = {
   status: string,
   message: string,
-  data: [],
+  articles: [],
 }
 const layout = {
   labelCol: { span: 0 },
