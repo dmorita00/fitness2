@@ -15,3 +15,18 @@ StringLiterals:
 Style/Documentation:
   Exclude:
     - "db/migrate/**/*"
+
+# メソッドの長さ
+Metrics/MethodLength:
+  Exclude:
+    - "db/migrate/**/*"
+
+# AbcSize
+Metrics/AbcSize:
+  Exclude:
+    - "db/migrate/**/*"
+
+# 行の長さ
+Layout/LineLength:
+  Exclude:
+    - "config/initializers/**/*"

@@ -11,6 +11,7 @@ import ArticleAdd from "./pages/ArticleAdd";
 import ArticlesList from "./pages/ArticleList";
 import Menu from './components/menu'
 import { Layout } from 'antd';
+import SignIn from "./pages/SignIn";
 
 const { Header, Footer, Sider, Content } = Layout;
 const queryClient = new QueryClient()
@@ -28,6 +29,7 @@ function App() {
             <Content>
               <Router>
                 <Routes>
+                  <Route path="/signin" element={<SignIn />} />
                   <Route path="/article" element={<ArticlesList />} />
                   <Route path="/article/add" element={<ArticleAdd />} />
                   <Route path="/users" element={<UsersList />} />

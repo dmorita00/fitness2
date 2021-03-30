@@ -10,17 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_26_023746) do
+ActiveRecord::Schema.define(version: 2021_03_30_072925) do
 
   create_table "articles", charset: "utf8mb4", force: :cascade do |t|
     t.string "title"
     t.text "text"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "users", charset: "utf8mb4", force: :cascade do |t|
-    t.string "first_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
