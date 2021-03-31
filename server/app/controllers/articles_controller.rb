@@ -1,7 +1,7 @@
 class ArticlesController < ApplicationController
   # 記事の一覧表示
   def index
-    articles = Article.all.order(created_at: :desc)
+    articles = Article.includes(:user).all.order(created_at: :desc)
     render json: articles
   end
 

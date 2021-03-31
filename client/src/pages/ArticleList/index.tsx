@@ -49,7 +49,7 @@ const ArticlesList: FC = () => {
 
   return (
       <>
-        <Table dataSource={articles.data} columns={columns} rowKey="id" />
+        <Table dataSource={articles.articles} columns={columns} rowKey="id" />
       </>
   );
 }
