@@ -1,18 +1,17 @@
 version: '3'
 
 services:
-    client:
-        build:
-            context: .
-            dockerfile: devops/docker/client/Dockerfile
-            args:
-                DEPLOY: local
-        command: bash -c "cd /code/client && yarn start"
-        ports:
-            - "12342:3000"
-        volumes:
-            - fitness-code:/code
-        # image: ${DOCKER_REGISTRY}:client-${CIRCLE_BUILD_NUM}
+#    client:
+#        build:
+#            context: .
+#            dockerfile: devops/docker/client/Dockerfile
+#            args:
+#                DEPLOY: local
+#        command: bash -c "cd /code/client && yarn start"
+#        ports:
+#            - "12342:3000"
+#        volumes:
+#            - fitness-code:/code
 
     server-ruby:
         build:
@@ -23,7 +22,6 @@ services:
         volumes:
             - fitness-code:/code
         command: bash -c "rm -f tmp/pids/server.pid && rails s -p 3000 -b '0.0.0.0'"
-    # image: ${DOCKER_REGISTRY}:server-ruby-${CIRCLE_BUILD_NUM}
 
     proxy-nginx:
         build:
@@ -35,7 +33,6 @@ services:
             - "12341:80"
         volumes:
             - fitness-code:/code
-    # image: ${DOCKER_REGISTRY}:proxy-nginx-${CIRCLE_BUILD_NUM}
 
     mysql:
         build:
@@ -44,10 +41,18 @@ services:
         environment:
             MYSQL_ROOT_PASSWORD: password
         ports:
-            - "3306:3306"
+            - "12340:3306"
         volumes:
             - ./devops/docker/mysql/data:/var/log/mysql:rw
         user: mysql
+
+    redis:
+        image: redis:6
+        volumes:
+            - fitness-code:/code
+        ports:
+            - "12342:6379"
+        command: redis-server --appendonly yes
 
 # https://qiita.com/kunit/items/36d9e5fa710ad26f8010
 # https://forums.docker.com/t/nfs-native-support/48531/4
