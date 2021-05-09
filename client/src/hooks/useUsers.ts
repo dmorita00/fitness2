@@ -1,15 +1,16 @@
 import { useQuery } from 'react-query';
-import axios from "axios";
+import { axiosClient } from '../utils/tools';
 
-type UsersRes = {
-  status: string,
-  message: string,
-  data: [],
-}
+
+// type UsersRes = {
+//   status: string,
+//   message: string,
+//   data: [],
+// }
 
 const useUsers = (params: any) => {
   const { data, ...rest } = useQuery(['users'], async () => {
-    const res = await axios.get<UsersRes>(`http://localhost:12341/users/index`);
+    const res = await axiosClient().get<any>(``);
     return {
       data: res.data.data
     };
