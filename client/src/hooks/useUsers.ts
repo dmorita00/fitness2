@@ -10,7 +10,10 @@ import { axiosClient } from '../utils/tools';
 
 const useUsers = (params: any) => {
   const { data, ...rest } = useQuery(['users'], async () => {
-    const res = await axiosClient().get<any>(``);
+    const params = new URLSearchParams();
+    params.append('email', 'a@aaaaa.com');
+    params.append('password', '1111111111');
+    const res = await axiosClient().post<any>(`/auth`, params);
     return {
       data: res.data.data
     };
